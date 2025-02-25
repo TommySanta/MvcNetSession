@@ -1,0 +1,52 @@
+﻿@model List<Empleado>
+
+@{
+    ViewData["Title"] = "Session Empleados V5";
+    List<int> idsEmpleados = Context.Session.GetObject<List<int>>("IDSEMPLEADOS") ?? new List<int>();
+}
+
+<h1>Session Empleados V5</h1>
+
+<p>
+    <a asp-controller="Empleados" asp-action="EmpleadosAlmacenadosV5">Ver empleados almacenados</a>
+</p>
+
+<h3 style="color:lightblue">@ViewData["MENSAJE"]</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Apellido</th>
+            <th>Oficio</th>
+            <th>Salario</th>
+            <th>ID Departamento</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var empleado in Model)
+        {
+            <tr>
+                <td>@empleado.IdEmpleado</td>
+                <td>@empleado.Apellido</td>
+                <td>@empleado.Oficio</td>
+                <td>@empleado.Salario</td>
+                <td>@empleado.IdDepartamento</td>
+                <td>
+                    @if (idsEmpleados.Contains(empleado.IdEmpleado))
+                    {
+                        <img src="~/images/check.png" alt="Almacenado" width="20" />
+                    }
+                    else
+                    {
+                        <a asp-controller="Empleados" asp-action="SessionEmpleadosV5"
+                           asp-route-idEmpleado="@empleado.IdEmpleado">
+                            Almacenar empleado
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

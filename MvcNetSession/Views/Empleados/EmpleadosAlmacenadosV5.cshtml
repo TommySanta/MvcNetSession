@@ -1,0 +1,53 @@
+﻿@model List<Empleado>
+
+@{
+    ViewData["Title"] = "EmpleadosAlmacenadosV5";
+}
+
+<h1>EmpleadosAlmacenados</h1>
+
+<p>
+    <a asp-controller="Empleados" asp-action="SessionEmpleadosV5"> Volver a almacenar empleados </a>
+</p>
+
+<h2>@ViewData["MENSAJE"]</h2>
+
+@if (Model == null || Model.Count == 0)
+{
+    <h2>No existen empleados en Session</h2>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Apellido</th>
+                <th>Oficio</th>
+                <th>Salario</th>
+                <th>ID Departamento</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var empleado in Model)
+            {
+                <tr>
+                    <td>@empleado.IdEmpleado</td>
+                    <td>@empleado.Apellido</td>
+                    <td>@empleado.Oficio</td>
+                    <td>@empleado.Salario</td>
+                    <td>@empleado.IdDepartamento</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@empleado.IdEmpleado">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@empleado.IdEmpleado">Detalles</a> |
+                        <a asp-action="EliminarEmpleadoSession" asp-route-idEmpleado="@empleado.IdEmpleado"
+                           class="text-danger">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

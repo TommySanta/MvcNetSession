@@ -1,0 +1,51 @@
+﻿@model List<Empleado>
+
+@{
+    ViewData["Title"] = "EmpleadosAlmacenadosOK";
+}
+
+<h1>EmpleadosAlmacenados</h1>
+
+<p>
+    <a asp-controller="Empleados" asp-action="SessionEmpleadosV4"> Volver a almacenar empleados </a>
+</p>
+<h2>
+    @ViewData["MENSAJE"]
+</h2>
+@if (Model == null)
+{
+    <h2>No existen empleados en Session</h2>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Apellido</th>
+                <th>Oficio</th>
+                <th>Salario</th>
+                <th>ID Departamento</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var empleado in Model)
+            {
+                <tr>
+                    <td>@empleado.IdEmpleado</td>
+                    <td>@empleado.Apellido</td>
+                    <td>@empleado.Oficio</td>
+                    <td>@empleado.Salario</td>
+                    <td>@empleado.IdDepartamento</td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = empleado.IdEmpleado }) |
+                        @Html.ActionLink("Detalles", "Details", new { id = empleado.IdEmpleado }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = empleado.IdEmpleado })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

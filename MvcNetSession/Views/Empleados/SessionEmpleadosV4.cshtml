@@ -1,0 +1,27 @@
+﻿@model List<Empleado>
+
+<h1>Session Empleados OK V4</h1>
+
+<p>
+    <a asp-controller="Empleados" asp-action="EmpleadosAlmacenadosV4">Empleados almacenados V4</a>
+</p>
+
+<h3 style="color:lightblue">@ViewData["MENSAJE"]</h3>
+
+<ul class="list-group">
+    @if (Model == null || Model.Count == 0)
+    {
+        <li class="list-group-item text-danger">Todos los empleados han sido almacenados en sesión.</li>
+    }
+    else
+    {
+        @foreach (Empleado empleado in Model)
+        {
+            <li class="list-group-item-dark">
+                @empleado.Apellido
+                <a asp-controller="Empleados" asp-action="SessionEmpleadosV4"
+                   asp-route-idEmpleado="@empleado.IdEmpleado">Almacenar empleado</a>
+            </li>
+        }
+    }
+</ul>
